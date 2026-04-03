@@ -113,13 +113,29 @@
         if (pass === correctPassword) {
             msg.innerText = "Access Granted";
             msg.style.color = "lightgreen";
+            
+            // Redirecionamento após um pequeno atraso de 1 segundo para o usuário ver a mensagem de sucesso
+            setTimeout(() => {
+                window.location.href = "https://www.youtube.com/watch?v=FzG4uDgje3M&list=PLuIb8PriVRQvMuvL7gnuPvznvMvKvO9Vx";
+            }, 1000);
+
         } else {
             msg.innerText = "Access Denied";
             msg.style.color = "red";
         }
     }
 
+    // Permite que o usuário aperte a tecla "Enter" para validar a senha
+    document.getElementById("password").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            checkPassword(event);
+        }
+    });
+
     function createClickEffect(e) {
+        // Verifica se o evento tem coordenadas (clique de mouse)
+        if(!e.clientX) return; 
+
         const glow = document.createElement("div");
         glow.className = "glow";
         glow.style.left = e.clientX + "px";

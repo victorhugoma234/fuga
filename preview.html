@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Access</title>
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .container {
+        text-align: center;
+        animation: fadeIn 2s ease;
+    }
+
+    input {
+        background: transparent;
+        border: 1px solid #444;
+        color: white;
+        padding: 10px;
+        outline: none;
+        width: 250px;
+        transition: 0.3s;
+    }
+
+    input:focus {
+        border-color: #fff;
+        box-shadow: 0 0 10px #fff;
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background: transparent;
+        border: 1px solid #fff;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    button:hover {
+        background: white;
+        color: black;
+    }
+
+    button:active {
+        transform: scale(0.95);
+        box-shadow: 0 0 20px white;
+    }
+
+    .glow {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        animation: clickEffect 0.5s ease-out;
+    }
+
+    @keyframes clickEffect {
+        from {
+            opacity: 1;
+            transform: scale(0);
+        }
+        to {
+            opacity: 0;
+            transform: scale(2);
+        }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .message {
+        margin-top: 15px;
+        height: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ACCESS</h1>
+    <input type="password" id="password" placeholder="Enter password">
+    <br>
+    <button onclick="checkPassword(event)">ENTER</button>
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+    const correctPassword = "pneumonoultramicroscopicsilicovolcanoconiosis";
+
+    function checkPassword(e) {
+        const pass = document.getElementById("password").value;
+        const msg = document.getElementById("message");
+
+        createClickEffect(e);
+
+        if (pass === correctPassword) {
+            msg.innerText = "Access Granted";
+            msg.style.color = "lightgreen";
+        } else {
+            msg.innerText = "Access Denied";
+            msg.style.color = "red";
+        }
+    }
+
+    function createClickEffect(e) {
+        const glow = document.createElement("div");
+        glow.className = "glow";
+        glow.style.left = e.clientX + "px";
+        glow.style.top = e.clientY + "px";
+        document.body.appendChild(glow);
+
+        setTimeout(() => {
+            glow.remove();
+        }, 500);
+    }
+</script>
+
+</body>
+</html>

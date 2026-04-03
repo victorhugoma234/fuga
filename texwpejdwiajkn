@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Access</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: black;
+        color: white;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .container {
+        text-align: center;
+        animation: fadeIn 1.5s ease;
+    }
+
+    input {
+        background: transparent;
+        border: 1px solid white;
+        padding: 12px;
+        color: white;
+        font-size: 18px;
+        outline: none;
+        width: 250px;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    input:focus {
+        border-color: #aaa;
+        box-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background: transparent;
+        border: 1px solid white;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: white;
+        color: black;
+    }
+
+    .message {
+        margin-top: 15px;
+        font-size: 14px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .success {
+        color: #0f0;
+    }
+
+    #redirectBtn {
+        display: none;
+        margin-top: 20px;
+        border-color: #0f0;
+        color: #0f0;
+    }
+
+    #redirectBtn:hover {
+        background: #0f0;
+        color: black;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px);} 
+        to { opacity: 1; transform: translateY(0);} 
+    }
+
+    .shake {
+        animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(0);} 
+        25% { transform: translateX(-5px);} 
+        50% { transform: translateX(5px);} 
+        75% { transform: translateX(-5px);} 
+        100% { transform: translateX(0);} 
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div id="loginArea">
+        <h2 style="margin-bottom:20px; opacity:0.7;">Enter Password</h2>
+        <input type="text" id="password" placeholder="...">
+        <br>
+        <button onclick="checkPassword()">Enter</button>
+    </div>
+    
+    <div id="message" class="message"></div>
+    
+    <button id="redirectBtn" onclick="window.location.href='https://victorhugoma234.github.io/index.html/'">
+        Prosseguir para o site
+    </button>
+</div>
+
+<audio id="morseAudio">
+    <source src="morse (2).wav" type="audio/wav">
+    Seu navegador não suporta áudio.
+</audio>
+
+<script>
+const correctPassword = "beans with fluor";
+const audio = document.getElementById("morseAudio");
+
+function checkPassword() {
+    const input = document.getElementById("password");
+    const message = document.getElementById("message");
+    const loginArea = document.getElementById("loginArea");
+    const redirectBtn = document.getElementById("redirectBtn");
+
+    if (input.value === correctPassword) {
+        message.textContent = "Access Granted";
+        message.className = "message success";
+        message.style.opacity = 1;
+
+        // Tocar o áudio
+        audio.play();
+
+        // Esconder interface de login e mostrar botão de redirecionar
+        loginArea.style.display = "none";
+        redirectBtn.style.display = "inline-block";
+
+        document.body.style.transition = "background 1s";
+        document.body.style.background = "black";
+
+    } else {
+        message.textContent = "Incorrect Password";
+        message.className = "message error";
+        message.style.opacity = 1;
+
+        input.classList.add("shake");
+        setTimeout(() => input.classList.remove("shake"), 400);
+    }
+}
+</script>
+
+</body>
+</html>
